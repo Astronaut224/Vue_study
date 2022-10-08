@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 准备好受vue控制的DOM结构 -->
+    <div id="app">
+        <div>
+            <p v-text="username"></p>
+            <p v-text="gender">性别：</p>
+
+            <hr>
+
+            <p>{{ username }}</p>
+            <p>性别：{{ gender }}</p>
+
+            <hr>
+
+            <p v-html="info"></p>
+        </div>
+    </div>
+
+    <!-- 1. 引入vue.js脚本文件 -->
+    <script src="./lib/vue.js"></script>
+
+    <!-- 2. 创建vue实例对象 -->
+    <script>
+        const vm = new Vue({
+            // 3. 声明受vue控制的DOM结构
+            el: '#app',
+            // data对象代表要渲染到页面的数据
+            data: {
+                username: 'zhangsan',
+                gender: '女',
+                info: '<h4 style="color: red; font-weight: bold;">欢迎大家来学习 Vue.js</h4>'
+            }
+        })
+    </script>
+</body>
+
+</html>

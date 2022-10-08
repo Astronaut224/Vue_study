@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-bind:placeholder="tips">
+        <img :src="logo" alt="" style="width: 100px;">
+
+        <hr>
+
+        <div>1加2的结果是{{ 1 + 2 }}</div>
+        <div>{{ tips }} 翻转的结果是：{{ tips.split('').reverse().join('') }}</div>
+        <div :title="'box-' + index">box</div>
+    </div>
+    
+    <script src="./lib/vue.js"></script>
+
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                tips: '请输入用户名',
+                logo: 'https://v2.cn.vuejs.org/images/logo.svg',
+                index: 3
+            }
+        })
+    </script>
+</body>
+</html>
