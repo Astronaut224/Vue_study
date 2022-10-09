@@ -12,6 +12,20 @@
         <br>
         <button v-on:click="add($event, 1)">+N</button>
         <button v-on:click="sub">-1</button>
+
+        <hr>
+
+        <a @click.prevent="show" href="www.baidu.com">点击跳转到百度</a>
+
+        <hr>
+
+        <div @click="divhandler" style="background-color: orange; height: 300px; padding-left: 150px; line-height: 300px;">
+            <button @click.stop="btnhandler">按钮</button>
+        </div>
+
+        <hr>
+
+        <input type="text" placeholder="请输入内容" @keyup.esc="clearInput">
     </div>
 
     <script src="./lib/vue.js"></script>
@@ -39,6 +53,18 @@
                 sub() {
                     // this 和 vm 相同
                     this.count -= 1;
+                },
+                show() {
+                    console.log('点击了a标签');
+                },
+                btnhandler() {
+                    console.log('点击了按钮');
+                },
+                divhandler() {
+                    console.log('点击了盒子');
+                },
+                clearInput(e) {
+                    e.target.value = '';
                 }
             }
         })

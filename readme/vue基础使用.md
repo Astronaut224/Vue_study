@@ -47,7 +47,7 @@
 
 将数据渲染到指定标签内，但是**会覆盖元素内默认的值**。几乎不用。
 
-2. 插值表达式
+2. **插值表达式**
 
 vue 提供的 {{}} 语法，可以解决 v-text 覆盖默认值的问题。主要使用
 
@@ -175,7 +175,7 @@ v-on 绑定事件，语法格式如下
 
 
 
-1. 通过 this 访问数据
+#### 1.通过 this 访问数据
 
 **注意**：要获取 data 中的数据源，可以用常量 vm 接收，也可以用 this，两者完全一致。
 
@@ -214,7 +214,7 @@ v-on 绑定事件，语法格式如下
 </body>
 ```
 
-2. 传参
+#### 2.传参
 
 传参可以直接使用小括号()
 
@@ -230,7 +230,7 @@ methods: {
 }
 ```
 
-3. v-on 简写
+#### 3.v-on 简写
 
 v-on: 可以直接简写为 @
 
@@ -238,7 +238,7 @@ v-on: 可以直接简写为 @
 <button @click="add">+1</button>
 ```
 
-4. 内置变量 $event
+#### 4.内置变量 $event
 
 $event 就是原生事件对象里的 e
 
@@ -261,6 +261,239 @@ methods: {
      }
 }
 ```
+
+
+
+#### 5.事件修饰符
+
+Vue 提供了事件修饰符，对事件的触发进行控制。
+
+| 事件修饰符   | 说明                                                         |
+| ------------ | ------------------------------------------------------------ |
+| **.prevent** | 阻止默认行为（例如：阻止a链接的跳转、阻止表单的提交等），功能等同于event.preventDefault() |
+| **.stop**    | 阻止事件冒泡，功能等同于event.stopPropagation()              |
+| .capture     | 以捕获的方式触发当前的事件函数                               |
+| .once        | 绑定的事件只触发一次                                         |
+| .self        | 只有在event.target是当前元素自身时触发事件处理函数           |
+
+```
+//阻止跳转
+<a @click.prevent="show" href="www.baidu.com">点击跳转到百度</a>
+
+<div @click="divhandler" style="background-color: orange; height: 300px; padding-left: 150px; line-height: 300px;">
+		//阻止冒泡
+      <button @click.stop="btnhandler">按钮</button>
+</div>
+
+methods: {
+                show() {
+                    console.log('点击了a标签');
+                },
+                btnhandler() {
+                    console.log('点击了按钮');
+                },
+                divhandler() {
+                    console.log('点击了盒子');
+                }
+}
+```
+
+#### 6.按键修饰符
+
+可以绑定指定按键，触发事件。例如输入款中，按 esc 键触发清除输入框内容的事件：
+
+### 4.双向绑定指令
+
+**在不操作DOM的情况下，快速获取表单数据。**
+
+v-bind是单向绑定，只有修改数据源的时候会显示在DOM结构中，修改DOM不会影响数据源。
+
+v-model是双向绑定，修改DOM或修改数据源，结果都会同步到另一个。
+
+```
+<body>
+    <div id="app">
+        <input type="text" v-model="username">
+        <hr>
+        <input type="text" :value="username">
+        <hr>
+        <select name="" id="" v-model="city">
+            <option value="">请选择城市</option>
+            <option value="1">北京</option>
+            <option value="2">上海</option>
+            <option value="3">广州</option>
+            <option value="4">深圳</option>
+        </select>
+    </div>
+
+    <script src="./lib/vue.js"></script>
+
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                username: 'zhangsan',
+                city: ''
+            }
+        })
+    </script>
+</body>
+```
+
+#### v-model指令修饰符
+
+| 修饰符  | 作用                              | 示例                                     |
+| ------- | --------------------------------- | ---------------------------------------- |
+| .number | 自动将用户输入的值转换成数值类型  | <input type="text" v-model.number="age"> |
+| .trim   | 过滤用户输入字符串两端的空格      | <input type="text" v-model.trim="msg">   |
+| .lazy   | 在"change"时而非"input"时更新数据 | <input type="text" v-model.lazy="msg">   |
+
+```html
+<body>
+    <div id="app">
+        <input type="text" v-model.number="n1"> + <input type="text" v-model.number="n2"> = {{ n1 + n2 }}
+        <hr>
+        <input type="text" placeholder="请输入用户名" v-model.trim="username">
+        <button @click="show">获取用户名</button>
+        <hr>
+        <input type="text" v-model.lazy="msg">
+    </div>
+
+    <script src="./lib/vue.js"></script>
+    
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                n1: 1,
+                n2: 2,
+                username: 'zhangsan',
+                msg: 'hello'
+            },
+            methods: {
+                show() {
+                    console.log(`用户名是："${this.username}"`);
+                }
+            }
+        })
+    </script>
+</body>
+```
+
+### 5. 条件渲染指令
+
+**按需控制 DOM 的显示与隐藏，值为true显示，值为false隐藏**
+
+- v-if 的原理：动态的创建或移除元素，实现元素的隐藏。
+  - 如果进入页面时，元素默认不需要展示，后期也不一定会被展示，此时 v-if 性能更好。
+- v-show 的原理：动态的创建或移除 display: none 样式，实现元素的隐藏。
+  - 如果需要频繁的切换元素的显示状态，此时 v-show 的性能更好。
+
+```html
+<body>
+    <div id="app">
+        <div v-if="flag">这是被v-if控制的元素</div>
+        <div v-show="flag">这是被v-show控制的元素</div>
+        <button @click="toggle">toggle flag</button>
+    </div>
+
+    <script src="./lib/vue.js"></script>
+
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                flag: true
+            },
+            methods: {
+                toggle() {
+                    if (this.flag === true) {
+                        this.flag = false;
+                    } else {
+                        this.flag = true;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+```
+
+- v-else ：结合 v-if 使用
+
+```
+<div v-if="type === 'A'">优秀</div>
+<div v-else-if="type === 'B'">良好</div>
+<div v-else-if="type === 'C'">合格</div>
+<div v-else>差</div>
+
+data: {
+	type: 'A'
+}
+```
+
+
+
+### 6.列表渲染指令
+
+循环渲染元素时使用 v-for，语法是`v-for="变量 in 数组"`
+
+```html
+<body>
+    <div id="app">
+        <table border="1">
+            <thead>
+                <th>索引</th>
+                <th>ID</th>
+                <th>姓名</th>
+            </thead>
+            <tbody>
+                <!-- 不使用索引的话就直接 item in list -->
+                <tr v-for="item in list">
+                    <td>不使用</td>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.name }}</td>
+                </tr>
+                <!-- 使用索引的话就需要用item提供的index， (item, index) in list -->
+                <tr v-for="(item, index) in list">
+                    <td>{{ index }}</td>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.name }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="./lib/vue.js"></script>
+
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                list: [
+                    {id: 1, name: '张三'},
+                    {id: 2, name: '李四'},
+                    {id: 3, name: '王五'}
+                ]
+            }
+        })
+    </script>
+</body>
+```
+
+**注意**
+
+官方建议使用 v-for 时，在后面一定要绑定一个 `:key` 属性。
+
+建议key 的值尽量使用 id 。
+
+类型必须是**字符串**或**数字**类型。
+
+key 的值不允许重复，要具有唯一性。
+
+索引不具有唯一性，不能作为 key 的值。（因为索引没有和数据绑定）
+
+`<tr v-for="item in list" :key="item.id">`
 
 
 

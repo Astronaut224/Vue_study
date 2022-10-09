@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div v-if="flag">这是被v-if控制的元素</div>
+        <div v-show="flag">这是被v-show控制的元素</div>
+        <button @click="toggle">toggle flag</button>
+
+        <hr>
+        <div v-if="type === 'A'">优秀</div>
+        <div v-else-if="type === 'B'">良好</div>
+        <div v-else-if="type === 'C'">合格</div>
+        <div v-else>差</div>
+    </div>
+
+    <script src="./lib/vue.js"></script>
+
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                flag: true,
+                type: 'A'
+            },
+            methods: {
+                toggle() {
+                    if (this.flag === true) {
+                        this.flag = false;
+                    } else {
+                        this.flag = true;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

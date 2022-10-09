@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model.number="n1"> + <input type="text" v-model.number="n2"> = {{ n1 + n2 }}
+        <hr>
+        <input type="text" placeholder="请输入用户名" v-model.trim="username">
+        <button @click="show">获取用户名</button>
+        <hr>
+        <input type="text" v-model.lazy="msg">
+    </div>
+
+    <script src="./lib/vue.js"></script>
+    
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                n1: 1,
+                n2: 2,
+                username: 'zhangsan',
+                msg: 'hello'
+            },
+            methods: {
+                show() {
+                    console.log(`用户名是："${this.username}"`);
+                }
+            }
+        })
+    </script>
+</body>
+</html>
