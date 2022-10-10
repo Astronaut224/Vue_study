@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model.lazy="info.username">
+    </div>
+
+    <script src="./lib/vue.js"></script>
+
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                info: {
+                    username: 'zhangsan',
+                }
+            },
+            watch: {
+                info: {
+                    handler(newVal) {
+                        console.log(newVal);
+                        console.log(newVal.username);
+                    },
+                    // 开启深度监听，监听对象中每一个属性发生变化都会触发侦听器。
+                    deep: true,
+                }
+                // 如果想newVal直接拿到username，而不是拿到整个info对象，可以直接监听 'info.username'
+                // 'info.username': {
+                //     handler(newVal) {
+                //         console.log(newVal);
+                //     }
+                // }
+            }
+        })
+    </script>
+</body>
+</html>

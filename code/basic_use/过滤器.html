@@ -1,0 +1,51 @@
+<!--
+ * @Author: 
+ * @Date: 2022-10-10 09:26:45
+ * @LastEditTime: 2022-10-10 10:11:15
+ * @FilePath: \basic_use\过滤器.html
+ * @Description: 过滤器已被 3.0 删除，只能在 2.0 中使用
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>message的值是：{{ message | capi }}</div>
+    </div>
+
+    <script src="./lib/vue.js"></script>
+
+    <script>
+        Vue.filter('capi', (str) => {
+                const first = str.charAt(0).toUpperCase();
+                const other = str.slice(1);
+                return first + other;
+            })
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                message: 'hello vue.js',
+            },
+            // filters: {
+            //     /**
+            //      * @description: 首字母大写
+            //      * @param {*} val   获取管道符前面的值
+            //      * @return {*}  返回首字母大写的字符串
+            //      */                
+            //     capi(val) {
+            //         // charAt 方法获取字符串中索引对应的值
+            //         const first = val.charAt(0).toUpperCase();
+            //         // slice 方法截取字符串，从指定索引往后截取
+            //         const other = val.slice(1);
+            //         return first + other;
+            //     }
+            // }
+        })
+    </script>
+</body>
+</html>

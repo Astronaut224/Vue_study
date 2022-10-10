@@ -1,0 +1,42 @@
+<!--
+ * @Author: 
+ * @Date: 2022-10-10 11:09:09
+ * @LastEditTime: 2022-10-10 11:15:02
+ * @FilePath: \basic_use\侦听器_对象格式.html
+ * @Description: 方法格式的侦听器无法在进入页面的时候自动触发，对象格式的侦听器可以通过 immediate 属性实现自动触发一次
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model.lazy="username">
+    </div>
+
+    <script src="./lib/vue.js"></script>
+
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data : {
+                username: 'admin',
+            },
+            watch: {
+                username: {
+                    handler(newVal, oldVal) {
+                        console.log('侦听器触发', newVal, oldVal);
+                    },
+                    // immediate 默认值是 false
+                    // immediate 作用是控制侦听器是否被自动触发一次
+                    immediate: true,
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!--
+ * @Author: 
+ * @Date: 2022-10-10 14:48:58
+ * @LastEditTime: 2022-10-10 15:51:52
+ * @FilePath: \basic_use\计算属性.html
+ * @Description: 在输入框中输入r,g,b的值，实现对应内容的改变
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="r">
+        <br>
+        <input type="text" v-model="g">
+        <br>
+        <input type="text" v-model="b">
+        <hr>
+        <div class="box" :style="{ backgroundColor: rgb }">
+            {{ rgb }}
+        </div>
+        <br>
+        <button @click="show">按钮</button>
+    </div>
+
+    <script src="./lib/vue.js"></script>
+
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                r: 0,
+                g: 0,
+                b: 0,
+            },
+            methods: {
+                show() {
+                    console.log(this.rgb);
+                }
+            },
+            // 计算属性要定义在 computed 节点下
+            computed: {
+                // 计算属性要定义为方法
+                rgb() {
+                    // `xx${}xx`是es6模板字符串写法
+                    return `rgb(${this.r}, ${this.g}, ${this.b})`;
+                }
+            }
+        })
+    </script>
+
+    <style>
+        .box {
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</body>
+</html>

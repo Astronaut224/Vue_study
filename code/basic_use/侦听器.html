@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model.lazy="username">
+    </div>
+
+    <script src="./lib/vue.js"></script>
+
+    <script>    
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                username: '',
+            },
+            // watch侦听器，监视哪个数据，就用数据名作方法名
+            watch: {
+                /**
+                 * @description: 判断用户名是否被占用
+                 * @param {*} newVal    新输入的用户名
+                 * @return {*}
+                 */                
+                username(newVal) {
+                    // 如果输入为空，则不调用接口
+                    if (newVal === '') return;
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('GET', 'https://www.escook.cn/api/finduser/' + newVal);
+                    xhr.send();
+                    xhr.onreadystatechange = function() {
+                        if(xhr.readyState === 4 && xhr.status === 200) {
+                            console.log(xhr.responseText);
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
