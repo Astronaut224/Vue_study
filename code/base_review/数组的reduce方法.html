@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        const arr = [
+                { id: 1, name: '西瓜', status: true, price: 10, count: 1 },
+                { id: 2, name: '苹果', status: true, price: 20, count: 2 },
+                { id: 3, name: '香蕉', status: false, price: 10, count: 3 },
+                { id: 4, name: '梨', status: true, price: 10, count: 4 },
+            ];
+
+        // reduce方法用于求和，应用场景：计算购物车中勾选商品的总价
+        // xxx.reduce((累加的结果, 当前循环项) => { },初始值)
+        const sumPrice = arr.filter(item => item.status).reduce((amount, item) => {
+            amount += item.price * item.count;
+            return amount;
+        },0)
+
+        console.log(sumPrice);
+    </script>
+</body>
+</html>

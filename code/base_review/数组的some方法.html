@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const arr = ['xiaoming', 'xiaohong', 'jack', 'lily'];
+
+        // forEach方法一旦开始循环，无法在中间停止
+        // arr.forEach((item,index) => {
+        //     console.log('循环了');
+        //     if(item === 'jack') {
+        //         console.log(index);
+        //     }
+        // })
+
+        // 在数组中找元素建议用some方法
+        arr.some((item,index) => {
+            console.log('循环了');
+            if(item === 'jack') {
+                console.log(index);
+                // 通过return true 来终止循环
+                return true;
+            }
+        })
+    </script>
+</body>
+</html>
