@@ -1,3 +1,11 @@
+<!--
+ * @Author: Astronaut224 1398838410@qq.com
+ * @Date: 2022-10-15 09:54:33
+ * @LastEditors: Astronaut224 1398838410@qq.com
+ * @LastEditTime: 2022-10-15 13:18:57
+ * @FilePath: \demo-cart\src\components\Footer\Footer.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <template>
   <div class="footer-container">
     <!-- 左侧的全选 -->
@@ -9,11 +17,11 @@
     <!-- 中间的合计 -->
     <div>
       <span>合计：</span>
-      <span class="total-price">￥{{ 0 }}</span>
+      <span class="total-price">￥{{ total }}</span>
     </div>
 
     <!-- 结算按钮 -->
-    <button type="button" class="btn btn-primary btn-settle">结算（{{ 0 }}）</button>
+    <button type="button" class="btn btn-primary btn-settle">结算（{{ goodsNum }}）</button>
   </div>
 </template>
 
@@ -23,6 +31,14 @@ export default {
     isFull: {
       type: Boolean,
       default: true
+    },
+    total: {
+      type: Number,
+      default: 0
+    },
+    goodsNum: {
+      type: Number,
+      default: 0
     }
   },
   methods: {

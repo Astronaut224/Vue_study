@@ -19,12 +19,15 @@
         <!-- 商品价格 -->
         <span class="goods-price">￥{{ price }}</span>
         <!-- 商品的数量 -->
+        <Counter :cnum="count" :cid="id"></Counter>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Counter from '@/components/Counter/Counter'
+
 export default {
   props: {
     // 接收id是因为复选框状态通过$emit 子向父传值时要用
@@ -47,6 +50,10 @@ export default {
     state: {
       default: true,
       type: Boolean
+    },
+    count: {
+      default: 1,
+      type: Number
     }
   },
   methods: {
@@ -56,6 +63,9 @@ export default {
       // 把{id, state}传给父组件，就知道哪个商品的复选框状态发生改变了
       this.$emit('state-change', {id: this.id, state: newState});
     }
+  },
+  components: {
+    Counter
   }
 }
 </script>
